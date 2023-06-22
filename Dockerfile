@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.13
+FROM python:3.11.4-alpine3.18
 LABEL maintainer="https://github.com/jsrwell"
 
 ENV PYTHONUNBUFFERED 1
