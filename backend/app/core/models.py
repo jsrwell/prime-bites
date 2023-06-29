@@ -4,6 +4,7 @@ Database models.
 import uuid
 import os
 
+from django.utils.text import slugify
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
@@ -47,13 +48,27 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+    def save(self, *args, **kwargs):
+        if not self.first_name:
+            self.first_name = self.get_first_name_from_email()
+
+        super().save(*args, **kwargs)
+
+    def get_first_name_from_email(self):
+        """Get the first name from the first part of the e-mail."""
+        email_parts = self.email.split("@")
+        name = email_parts[0]
+        name = slugify(name)
+        return name.split("-")[0]
 
 
 class Recipe(models.Model):
