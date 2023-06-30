@@ -1,0 +1,27 @@
+nav {
+  background-color: var(--main-red);
+  color: var(--main-white);
+  font-family: poppins;
+
+  width: 100vw;
+  height: 5rem;
+}
+#nav-title {
+  font-size: 2.2rem;
+  font-weight: bolder;
+}
+#nav-items {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 666px) {
+  nav {
+    height: 4rem;
+  }
+  #nav-title {
+    font-size: 1.8rem;
+  }
+  #nav-items {
+    font-size: 1rem;
+  }
+}
