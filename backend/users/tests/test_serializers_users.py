@@ -3,7 +3,7 @@ Users Serializers Tests
 """
 
 from django.test import TestCase
-from users.models import PrimeUser
+from users.models import User
 from users.serializers import PrimeUserSerializer
 
 

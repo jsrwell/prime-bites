@@ -1,16 +1,17 @@
 from rest_framework import serializers
-from users.models import PrimeUser
-from django.contrib.auth import authenticate
+from users.models import User
+from django.contrib.auth import authenticate, get_user_model
 
 
 class PrimeUserSerializer(serializers.ModelSerializer):
+    """Serializer for the user object."""
     email = serializers.EmailField(required=True)
     first_name = serializers.CharField(required=False, allow_blank=True)
     last_name = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
-        model = PrimeUser
-        fields = ['email', 'first_name', 'last_name']
+        model = User
+        fields = ['email', 'password', 'first_name', 'last_name']
 
     def validate_first_name(self, value):
         if any(char.isdigit() for char in value):
@@ -27,7 +28,7 @@ class PrimeUserSerializer(serializers.ModelSerializer):
         return value
 
     def validate_email(self, value):
-        if PrimeUser.objects.filter(email=value).exists():
+        if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("This email is already in use.")
 
         return value

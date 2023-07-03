@@ -1,5 +1,5 @@
 from django.test import TestCase
-from users.models import PrimeUser
+from users.models import User
 
 
 class UserModelTest(TestCase):
@@ -8,7 +8,7 @@ class UserModelTest(TestCase):
         email = 'test@example.com'
         password = 'mypassword'
 
-        user = PrimeUser.objects.create_user(email=email, password=password)
+        user = User.objects.create_user(email=email, password=password)
 
         self.assertEqual(user.email, email)
         self.assertTrue(user.check_password(password))
@@ -20,7 +20,7 @@ class UserModelTest(TestCase):
         first_name = 'John'
         last_name = 'Doe'
 
-        user = PrimeUser.objects.create_user(
+        user = User.objects.create_user(
             email=email, password=password, first_name=first_name, last_name=last_name)
 
         self.assertEqual(user.email, email)

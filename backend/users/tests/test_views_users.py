@@ -1,7 +1,7 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from users.models import PrimeUser
+from users.models import User
 from rest_framework.test import APIClient
 
 
@@ -40,7 +40,7 @@ class UserCreationTestCase(APITestCase):
         """
         Test creating a user with an email that already exists.
         """
-        PrimeUser.objects.create_user(**self.data)
+        User.objects.create_user(**self.data)
 
         response = self.client.post(self.url, self.data, format='json')
 
@@ -53,7 +53,7 @@ class TokenCreationTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.url = reverse('users:token')
-        self.user = PrimeUser.objects.create_user(
+        self.user = User.objects.create_user(
             email='test@example.com',
             password='mypassword'
         )
@@ -70,8 +70,7 @@ class TokenCreationTestCase(APITestCase):
         response = self.client.post(self.url, data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('access', response.data)
-        self.assertIn('refresh', response.data)
+        self.assertIn('token', response.data)
 
     def test_create_token_invalid_credentials(self):
         """
@@ -90,7 +89,7 @@ class TokenCreationTestCase(APITestCase):
 class CurrentUserTestCase(APITestCase):
     def setUp(self):
         self.url = reverse('users:me')
-        self.user = PrimeUser.objects.create_user(
+        self.user = User.objects.create_user(
             email='test@example.com',
             password='mypassword',
             first_name='John',
