@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from users.models import User
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import authenticate
 
 
-class PrimeUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user object."""
     email = serializers.EmailField(required=True)
     first_name = serializers.CharField(required=False, allow_blank=True)
@@ -34,7 +34,7 @@ class PrimeUserSerializer(serializers.ModelSerializer):
         return value
 
 
-class PrimeTokenSerializer(serializers.Serializer):
+class TokenSerializer(serializers.Serializer):
     """Serializer for the user auth token."""
     email = serializers.EmailField()
     password = serializers.CharField(

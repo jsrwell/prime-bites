@@ -3,15 +3,14 @@ Users Serializers Tests
 """
 
 from django.test import TestCase
-from users.models import User
-from users.serializers import PrimeUserSerializer
+from users.serializers import UserSerializer
 
 
-class PrimeUserSerializerTest(TestCase):
+class UserSerializerTest(TestCase):
     def test_serializer_fields(self):
         """Test the serializer fields."""
-        serializer = PrimeUserSerializer()
-        expected_fields = ['email', 'first_name', 'last_name']
+        serializer = UserSerializer()
+        expected_fields = ['email', 'password', 'first_name', 'last_name']
 
         self.assertEqual(set(serializer.fields.keys()), set(expected_fields))
 
@@ -19,11 +18,12 @@ class PrimeUserSerializerTest(TestCase):
         """Test serializer with valid data."""
         data = {
             'email': 'test@example.com',
+            'password': 'mypassword',
             'first_name': 'John',
             'last_name': 'Doe'
         }
 
-        serializer = PrimeUserSerializer(data=data)
+        serializer = UserSerializer(data=data)
         self.assertTrue(serializer.is_valid())
         user = serializer.save()
 
@@ -39,5 +39,5 @@ class PrimeUserSerializerTest(TestCase):
             'last_name': 123  # Invalid data type
         }
 
-        serializer = PrimeUserSerializer(data=data)
+        serializer = UserSerializer(data=data)
         self.assertFalse(serializer.is_valid())
