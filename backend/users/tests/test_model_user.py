@@ -1,5 +1,6 @@
-"""Test User model."""
-
+"""
+Test User model
+"""
 from django.test import TestCase
 from users.models import User
 from django.utils.text import slugify

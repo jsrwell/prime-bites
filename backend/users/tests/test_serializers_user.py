@@ -1,7 +1,6 @@
 """
 Users Serializers Tests
 """
-
 from django.test import TestCase
 from users.serializers import UserSerializer
 
