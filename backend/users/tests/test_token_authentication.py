@@ -1,16 +1,15 @@
 """
 Teste Token Authentication
 """
+from django.urls import reverse
 from rest_framework import status
-from rest_framework.reverse import reverse
-from rest_framework.test import APITestCase
+from django.test import TestCase
 from users.models import User
 
+# AUTH_URL = reverse('user:token')
 
-TOKEN_URL = reverse('user:token')
 
-
-class UserAuthenticationTestCase(APITestCase):
+class UserAuthenticationTest(TestCase):
     def setUp(self):
         self.user_data = {
             'email': 'test@example.com',
@@ -29,7 +28,7 @@ class UserAuthenticationTestCase(APITestCase):
             'password': self.user_data['password'],
         }
 
-        response = self.client.post(TOKEN_URL, data, format='json')
+        response = self.client.post(reverse('user:token'), data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('token', response.data)
@@ -43,7 +42,7 @@ class UserAuthenticationTestCase(APITestCase):
             'password': 'incorrect_password',
         }
 
-        response = self.client.post(TOKEN_URL, data, format='json')
+        response = self.client.post(reverse('user:token'), data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertNotIn('token', response.data)
@@ -56,7 +55,7 @@ class UserAuthenticationTestCase(APITestCase):
             'email': self.user_data['email'],
         }
 
-        response = self.client.post(TOKEN_URL, data, format='json')
+        response = self.client.post(reverse('user:token'), data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertNotIn('token', response.data)
