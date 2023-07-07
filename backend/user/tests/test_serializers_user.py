@@ -2,7 +2,7 @@
 Users Serializers Tests
 """
 from django.test import TestCase
-from users.serializers import UserSerializer
+from user.serializers import UserSerializer
 
 
 class UserSerializerTest(TestCase):

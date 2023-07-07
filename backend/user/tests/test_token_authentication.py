@@ -4,7 +4,7 @@ Teste Token Authentication
 from django.urls import reverse
 from rest_framework import status
 from django.test import TestCase
-from users.models import User
+from user.models import User
 
 # AUTH_URL = reverse('user:token')
 

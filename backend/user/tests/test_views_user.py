@@ -4,7 +4,7 @@ Teste User Views
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from users.models import User
+from user.models import User
 from django.utils.text import slugify
 
 CREATE_URL = reverse('user:create')
