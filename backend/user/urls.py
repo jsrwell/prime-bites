@@ -10,19 +10,19 @@ from rest_framework_simplejwt.views import (
 app_name = 'user'
 
 urlpatterns = [
-    path('user/',
+    path('create/',
          CreateUserView.as_view(),
          name='create'
          ),
-    path('api/token/',
+    path('token/',
          TokenObtainPairView.as_view(),
          name='token_obtain_pair'
          ),
-    path('api/token/refresh/',
+    path('token/refresh/',
          TokenRefreshView.as_view(),
          name='token_refresh'
          ),
-    path('api/token/verify/',
+    path('token/verify/',
          TokenVerifyView.as_view(),
          name='token_verify'
          ),

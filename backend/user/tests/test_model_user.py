@@ -4,6 +4,7 @@ Test User model
 from django.test import TestCase
 from user.models import User
 from django.utils.text import slugify
+from core.utils import get_first_name_from_email
 
 
 class UserModelTest(TestCase):
@@ -72,12 +73,8 @@ class UserModelTest(TestCase):
         self.assertEqual(self.user.first_name, expected_first_name)
 
     def test_get_first_name_from_email(self):
-        """
-        Test if the get_first_name_from_email() method
-        returns the correct first name from the email.
-        """
-        self.user = User(email='test@example.com')
-        first_name = self.user.get_first_name_from_email()
-
-        expected_first_name = slugify('test').split('-')[0]
+        """Test get_first_name_from_email() method."""
+        test_email = "testmyemail@example.com"
+        expected_first_name = "testmyemail"
+        first_name = get_first_name_from_email(test_email)
         self.assertEqual(first_name, expected_first_name)

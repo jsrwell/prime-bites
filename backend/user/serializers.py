@@ -33,3 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("This email is already in use.")
 
         return value
+
+    def create(self, validated_data):
+        """Create and return a user with encrypted password."""
+        return get_user_model().objects.create_user(**validated_data)
