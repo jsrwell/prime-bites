@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/header/header";
+import Header from "../../components/header/Header";
 import "./Home.css";
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
                   Mauris sagittis quam non mauris fermentum molestie. Proin
                   dapibus massa ligula, et vestibulum nulla vulputate sit amet.
                 </p>
-                <div className="flex justify-center items-baseline st-button-div">
+                <div className="flex justify-center items-center st-button-div">
                   <button
                     type="button"
                     className="bg-m-white hover:bg-m-gray rounded-3xl text-m-green font-semibold st-button text-base md:text-xl"
@@ -32,7 +32,25 @@ const Home = () => {
         <div className="bg-m-white w-full promotions-area">
           <h1 className="ml-10 mt-5 text-3xl font-semibold">Promotions</h1>
           <div className="w-full h-5/6 flex justify-center items-center">
-            <div className="bg-m-gray rounded-lg promotion-box w-3/4 h-5/6 "></div>
+            <div className="bg-m-gray rounded-lg promotion-box w-3/4 h-5/6 flex items-center justify-center">
+              <div className="h-2/3 w-4/6 mx-10 flex justify-start space-x-5 overflow-x-auto relative">
+                <div className="bg-white">
+                  <div className="w-52">card</div>
+                </div>
+                <div className="bg-white">
+                  <div className="w-52">card</div>
+                </div>
+                <div className=" bg-white">
+                  <div className="w-52">card</div>
+                </div>
+                <div className=" bg-white">
+                  <div className="w-52">card</div>
+                </div>
+                <div className="bg-white">
+                  <div className="w-52">card</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
