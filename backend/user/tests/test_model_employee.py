@@ -13,6 +13,7 @@ class EmployeeModelTest(TestCase):
         self.user = User.objects.create_user(
             email=self.email,
             password=self.password)
+
         # Then Create Two Permission Test Permission
         self.permission_1 = Permission.objects.create(
             name='Test Permission',
@@ -22,6 +23,7 @@ class EmployeeModelTest(TestCase):
             name='Automate Test',
             description='Test Permission Description 2'
         )
+
         # Finally create the Employee
         self.department = 'Test Department'
         self.employee = Employee.objects.create(

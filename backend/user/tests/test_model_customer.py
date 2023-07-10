@@ -13,6 +13,7 @@ class CustomerModelTest(TestCase):
         self.user = User.objects.create_user(
             email=self.email,
             password=self.password)
+
         # Make user a customer
         self.cpf = '12345678901'
         self.phone = '1234567890'
