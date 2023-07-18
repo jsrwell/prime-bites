@@ -1,3 +1,6 @@
+import uuid
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -10,7 +13,7 @@ from core.utils import get_first_name_from_email
 class UserManager(BaseUserManager):
     """Manager for users."""
 
-    def create(self, email, password=None, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         """Create, save and return a new user."""
         if not email:
             raise ValueError('User must have an email address.')
@@ -33,6 +36,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
@@ -52,6 +56,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+@receiver(pre_save, sender=User)
+def set_user_id(sender, instance, **kwargs):
+    """Generate and set the user ID before saving the User object."""
+    if not instance.id:
+        instance.id = uuid.uuid4()
 
 
 class Customer(models.Model):

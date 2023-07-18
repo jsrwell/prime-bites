@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from user.models import Employee
+from user.models import Customer
 
 User = get_user_model()
 
@@ -39,3 +39,11 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Create and return a user with encrypted password."""
         return get_user_model().objects.create_user(**validated_data)
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    """Serializer for the customer object."""
+
+    class Meta:
+        model = Customer
+        fields = ['user', 'cpf', 'phone']

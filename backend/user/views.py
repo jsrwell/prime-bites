@@ -1,5 +1,6 @@
 from rest_framework import generics
-from user.serializers import UserSerializer
+from user.models import Customer
+from user.serializers import CustomerSerializer, UserSerializer
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -15,3 +16,17 @@ class CreateUserView(generics.CreateAPIView):
         response.data.pop('password', None)
 
         return response
+
+
+class CustomerCreateView(generics.CreateAPIView):
+    """Create a new customer."""
+
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+
+
+class CustomerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    """Retrieve, update, or delete a customer."""
+
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer

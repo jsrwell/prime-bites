@@ -3,6 +3,7 @@ Users Model Tests
 """
 from django.test import TestCase
 from user.models import User
+import uuid
 
 
 class UserModelTest(TestCase):
@@ -42,3 +43,8 @@ class UserModelTest(TestCase):
         )
         expected_first_name = "testmyemail"
         self.assertEqual(self.user2.first_name, expected_first_name)
+
+    def test_user_has_uuid_id(self):
+        """Test if the user has a UUID as the ID."""
+        self.assertIsInstance(self.user.id, uuid.UUID)
+        self.assertIsNotNone(self.user.id)
