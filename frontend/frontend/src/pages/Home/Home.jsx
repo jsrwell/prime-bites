@@ -53,6 +53,17 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <div className="info-box">
+          <div className="bg-m-gray pt-5">
+            <h3 className="text-m-white info-title text-3xl font-medium ml-10">
+              Lorem ipsum
+            </h3>
+            <div className="flex items-center justify-center">
+              <div>blablalbalbablabl</div>
+              <div>LLalallaallalalalal</div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );

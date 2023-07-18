@@ -1,5 +1,6 @@
 main {
   padding-top: 5rem;
+  background: var(--main-red);
 }
 
 .first-content {
@@ -108,11 +109,22 @@ main {
 /* PROMOTIONS STYLES */
 
 .promotions-area {
-  height: 36rem;
+  height: 32rem;
 }
 
 .promotion-box {
   -webkit-box-shadow: -2px 4px 25px -8px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -2px 4px 25px -8px rgba(0, 0, 0, 0.75);
   box-shadow: -2px 4px 25px -8px rgba(0, 0, 0, 0.75);
+}
+
+/* INFO */
+
+.info-box {
+  height: 7rem;
+  background: var(--main-white);
+}
+
+.info-title {
+  font-family: poppins;
 }

@@ -9,7 +9,7 @@ const Header = () => {
       const scrollPosition = window.scrollY;
       const maxScroll =
         window.document.documentElement.scrollHeight - window.innerHeight;
-      const opacity = 1 - scrollPosition / maxScroll;
+      const opacity = 0.6 - scrollPosition / maxScroll;
 
       setHeaderOpacity(opacity > 0 ? opacity : 0);
     };
@@ -29,7 +29,7 @@ const Header = () => {
         className="flex items-center my-5"
         style={{
           color: headerOpacity === 0 ? "#000000" : "#FFFFFC",
-          transition: "color 0.5s ease",
+          transition: "color 0.3s ease in out",
         }}
       >
         <div className="flex-grow text-center w-full" id="header-title">
