@@ -16,13 +16,16 @@ class AddressModelTest(TestCase):
         )
 
         # Create a Customer
-        self.cpf = '12345678901'
-        self.phone = '1234567890'
-        self.customer = Customer.objects.create(
-            user=self.user,
-            cpf=self.cpf,
-            phone=self.phone
-        )
+        self.expected_cpf = '12345678901'
+        self.expected_phone = '1234567890'
+
+        # The signal should have already created the Customer instance
+        self.customer = Customer.objects.get(user=self.user)
+
+        # Update the attributes of the existing Customer instance
+        self.customer.cpf = self.expected_cpf
+        self.customer.phone = self.expected_phone
+        self.customer.save()
 
         # Create an Address
         self.street = 'Test Street'
