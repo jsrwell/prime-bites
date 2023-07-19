@@ -10,7 +10,7 @@ class EmployeeModelTest(TestCase):
         # First Create a User
         self.email = 'test@example.com'
         self.password = 'mypassword'
-        self.user = User.objects.create_employee(
+        self.user = User.objects.create(
             email=self.email,
             password=self.password)
 

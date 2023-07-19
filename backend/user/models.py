@@ -1,5 +1,5 @@
 import uuid
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.db import models
 from django.contrib.auth.models import (
@@ -65,11 +65,18 @@ def set_user_id(sender, instance, **kwargs):
         instance.id = uuid.uuid4()
 
 
+@receiver(post_save, sender=User)
+def create_customer_for_user(sender, instance, created, **kwargs):
+    """Create a Customer instance for a newly created user."""
+    if created:
+        Customer.objects.create(user=instance)
+
+
 class Customer(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
-    cpf = models.CharField(max_length=11)
-    phone = models.CharField(max_length=20)
+    cpf = models.CharField(max_length=11, blank=True)
+    phone = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
         return self.user.email
