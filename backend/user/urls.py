@@ -1,8 +1,7 @@
 from django.urls import path
 from user.views import (
     CreateUserView,
-    CustomerCreateView,
-    CustomerRetrieveUpdateDestroyView
+    CustomerRetrieveUpdateView
 )
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -30,10 +29,7 @@ urlpatterns = [
          TokenVerifyView.as_view(),
          name='token_verify'
          ),
-    path('create/',
-         CustomerCreateView.as_view(),
-         name='create'),
-    path('<int:pk>/',
-         CustomerRetrieveUpdateDestroyView.as_view(),
-         name='detail'),
+    path('details/<int:pk>/',
+         CustomerRetrieveUpdateView.as_view(),
+         name='details'),
 ]

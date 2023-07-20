@@ -1,7 +1,17 @@
-from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import (
+    generics,
+    permissions,
+)
+from rest_framework.generics import (
+    RetrieveAPIView,
+    UpdateAPIView
+)
+from user.serializers import (
+    CustomerSerializer,
+    UserSerializer
+)
 from user.models import Customer
-from user.serializers import CustomerSerializer, UserSerializer
 
 
 class CreateUserView(generics.CreateAPIView):
@@ -19,13 +29,6 @@ class CreateUserView(generics.CreateAPIView):
         return response
 
 
-class CustomerCreateView(generics.CreateAPIView):
-    """Create a new customer."""
-
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-
-
 class IsOwnerOnly(permissions.BasePermission):
     """Permission for Owner"""
 
@@ -33,8 +36,8 @@ class IsOwnerOnly(permissions.BasePermission):
         return obj.user == request.user
 
 
-class CustomerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    """Retrieve, update, or delete a customer."""
+class CustomerRetrieveUpdateView(RetrieveAPIView, UpdateAPIView):
+    """Retrieve and update a customer."""
     permission_classes = [IsAuthenticated, IsOwnerOnly]
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
