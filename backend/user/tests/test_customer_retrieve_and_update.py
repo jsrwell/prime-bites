@@ -11,19 +11,44 @@ from user.models import Customer
 User = get_user_model()
 
 
-class UserMixin:
+class UserPrimusMixin:
     """Mixin for User Creation"""
 
-    def make_user(self, email='test@example.com', password='mypassword'):
-        return User.objects.create_user(
-            email=email,
-            password=password
+    def make_user(self,
+                  email='test@example.com',
+                  password='mypassword'):
+        return User.objects.create_user(email=email, password=password)
+
+    def update_user_customer(self,
+                             email='test@example.com',
+                             cpf="11122233344",
+                             phone="(41)98765-4321"):
+        customer = Customer.objects.get(email=email)
+        customer.cpf = cpf
+        customer.phone = phone
+        customer.save()
+        return customer
+
+    def get_token(self, email='test@example.com', password='mypassword'):
+        userdata = {
+            'email': email,
+            'password': password,
+        }
+        user = self.make_author(
+            email=userdata.get('email'),
+            password=userdata.get('password')
         )
+        response = self.client.post(
+            reverse('user:token_obtain_pair'), data={**userdata}
+        )
+        return {
+            'access_token': response.data.get('access'),
+            'refresh_token': response.data.get('refresh'),
+            'user': user,
+        }
 
-    # TODO: Creating the Mixin of Tests
 
-
-class CustomerRetrieveUpdateViewTest(TestCase):
+class CustomerRetrieveUpdateViewTest(TestCase, UserPrimusMixin):
     """Customer Retrieve and Update Tests"""
 
     def setUp(self):
